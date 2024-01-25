@@ -15,8 +15,9 @@ public class AuthorizationController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] UserLoginDto model)
+    public IActionResult Post([FromBody] UserLoginDto user)
     {
-        return BadRequest();
+        string token = new JwtTokenFactory().CreateToken(user);
+        return Ok(token);
     }
 }

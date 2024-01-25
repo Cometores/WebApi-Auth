@@ -1,7 +1,9 @@
-using System.Collections.Immutable;
 using System.Text;
+using BearerJWT.Swagger;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace BearerJWT;
 
@@ -31,7 +33,10 @@ public sealed class Program
         IServiceCollection services = builder.Services;
         services.AddControllers();
         services.AddEndpointsApiExplorer();
+        
+        //Swagger
         services.AddSwaggerGen();
+        services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
         
         services.AddAuthentication(options =>
         {
